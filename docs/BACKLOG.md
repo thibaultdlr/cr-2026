@@ -23,6 +23,8 @@ orphelins retirés, 7 plugins de préparation ajoutés, mu-plugin de glue cache 
       `on_sent_ok` est cassé depuis CF7 5.0) en JS `wpcf7mailsent`, idéalement dans le thème custom.
 - [ ] **Plugins superflus pour une vitrine** — réévaluer ml-slider, statcounter,
       all-404-redirect, contact-form-7, really-simple-captcha au moment du thème custom.
+- [ ] **Traductions fr du mu-plugin `tr-cache`** — chaînes source en anglais (text domain
+      `tr-cache`). Générer `wp-content/mu-plugins/languages/tr-cache-fr_FR.po/.mo`.
 
 ## 🚧 Avant mise en prod (config plugins)
 

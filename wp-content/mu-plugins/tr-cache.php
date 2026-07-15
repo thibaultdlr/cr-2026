@@ -1,13 +1,15 @@
 <?php
 /**
  * Plugin Name: TR — Cache
- * Description: Gestionnaire de cache réutilisable. (1) Glue Autoptimize → WP Super Cache.
- *              (2) Purge unifiée dans le bon ordre, appelable par le thème. (3) Une seule
- *              entrée « Vider le cache » dans l'admin bar (masque celles d'Autoptimize et
- *              de WP Super Cache). (4) Hooks d'extension pour purger transients / cache
- *              objet au bon moment. Générique : chaque couche est optionnelle (guards).
+ * Description: Reusable cache manager. (1) Autoptimize → WP Super Cache glue. (2) Unified
+ *              purge in the correct order, callable from the theme. (3) A single "Clear
+ *              cache" admin bar entry (hides the Autoptimize and WP Super Cache ones).
+ *              (4) Extension hooks to purge transients / object cache at the right time.
+ *              Generic: every layer is optional (guards).
  * Author:      Thibault Rivrain
  * Version:     1.0.0
+ * Text Domain: tr-cache
+ * Domain Path: /languages
  *
  * @package TR\Cache
  */
@@ -21,6 +23,14 @@ namespace TR\Cache {
 	const NODE   = 'tr-clear-cache';   // id du node admin bar
 
 	if ( ! function_exists( __NAMESPACE__ . '\\clear_all' ) ) {
+
+		// Charge les traductions (fichiers .mo dans mu-plugins/languages/, ex. tr-cache-fr_FR.mo).
+		add_action(
+			'init',
+			static function () {
+				load_muplugin_textdomain( 'tr-cache', 'languages' );
+			}
+		);
 
 		/**
 		 * Purge de TOUS les caches, dans l'ordre correct : interne → externe.
@@ -94,9 +104,9 @@ namespace TR\Cache {
 				$wp_admin_bar->add_node(
 					array(
 						'id'    => NODE,
-						'title' => '⚡ Vider le cache',
+						'title' => esc_html__( '⚡ Clear cache', 'tr-cache' ),
 						'href'  => wp_nonce_url( admin_url( 'admin-post.php?action=' . ACTION ), ACTION ),
-						'meta'  => array( 'title' => 'Purge Autoptimize + WP Super Cache dans le bon ordre' ),
+						'meta'  => array( 'title' => esc_attr__( 'Purge Autoptimize + WP Super Cache in the correct order', 'tr-cache' ) ),
 					)
 				);
 			},
@@ -110,7 +120,7 @@ namespace TR\Cache {
 			'admin_post_' . ACTION,
 			static function () {
 				if ( ! current_user_can( 'manage_options' ) ) {
-					wp_die( 'Permission refusée.' );
+					wp_die( esc_html__( 'Permission denied.', 'tr-cache' ) );
 				}
 				check_admin_referer( ACTION );
 
@@ -129,7 +139,7 @@ namespace TR\Cache {
 			'admin_notices',
 			static function () {
 				if ( isset( $_GET[ FLAG ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-					echo '<div class="notice notice-success is-dismissible"><p>Cache vidé (Autoptimize + WP Super Cache).</p></div>';
+					echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Cache cleared (Autoptimize + WP Super Cache).', 'tr-cache' ) . '</p></div>';
 				}
 			}
 		);
