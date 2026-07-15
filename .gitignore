@@ -20,6 +20,8 @@ wp-config.php
 !.env.example
 # .htaccess réel ignoré : varie selon l'env. Modèle versionné = .htaccess.example
 /.htaccess
+# .htpasswd (hash d'accès, ne jamais committer)
+.htpasswd
 *.log
 
 # ---- Composer (lock ignoré pour l'instant : composer = index, pas de prod) ----
