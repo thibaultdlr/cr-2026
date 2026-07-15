@@ -31,7 +31,7 @@ orphelins retirés, 7 plugins de préparation ajoutés, mu-plugin de glue cache 
 
 - [ ] **Wordfence** — configurer le WAF + premier scan.
 - [ ] **WP Super Cache** — passer en mode *Simple* et activer le cache (la glue Autoptimize→SC
-      est déjà gérée par le mu-plugin `tr-cache`).
+      est déjà gérée par le mu-plugin `tr-cache`). **Doc complète cache : `docs/CACHE.md`.**
 - [ ] **Redirection** — lancer l'assistant (crée ses tables DB).
 - [ ] **Autoptimize** — agrégation OFF + minif ON déjà en place (rien à faire, cf. question MetaSlider ci-dessus).
 - [ ] **Déploiement** — méthode à définir ; NE PAS livrer `.git`, `vendor`, `node_modules` sur

@@ -87,7 +87,8 @@ de la **preprod déjà en ligne**, puis **basculer le domaine** `cedricrivrain.c
 - [ ] **Tester la messagerie** de Cédric (envoi ET réception) — le point critique.
 - [ ] SEO : `blog_public=1`, `robots.txt`, **sitemap Yoast** OK, resoumettre à Google Search Console.
 - [ ] **Remonter le TTL** DNS à une valeur normale (ex. 3600).
-- [ ] Configs plugins finalisées (Wordfence WAF/scan, WP Super Cache activé, Autoptimize, Redirection).
+- [ ] Configs plugins finalisées : Wordfence WAF/scan, **cache** (WP Super Cache mode Simple +
+      Autoptimize + `WP_CACHE`/`WPCACHEHOME` — **voir `docs/CACHE.md`**), Redirection.
 
 ## H. Rollback
 
