@@ -51,6 +51,12 @@ node_modules/
 /wp-content/advanced-cache.php
 /wp-content/wp-cache-config.php
 
+# Fichiers générés par les plugins (runtime, jamais versionnés)
+/wp-content/autoptimize_404_handler.php   # Autoptimize (self-heal 404 des assets)
+/wp-content/wflogs/                        # Wordfence (logs/état du scan)
+/wordfence-waf.php                         # Wordfence (auto-prepend WAF, racine)
+/.user.ini                                 # Wordfence WAF (config PHP, racine)
+
 # Plugins & thèmes : gérés via composer/wpackagist (cf. composer.json)
 /wp-content/plugins/*
 /wp-content/themes/*
