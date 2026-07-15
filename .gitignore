@@ -1,0 +1,59 @@
+# ==============================================================================
+# cedricrivrain.com — .gitignore
+# Approche "custom-only" : le core WP, les plugins et thèmes du dépôt
+# wordpress.org sont inventoriés dans composer.json et NON versionnés.
+# On ne versionne que le code custom + la config du projet.
+# ==============================================================================
+
+# ---- OS / éditeurs ----
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*~
+
+# ---- Secrets & logs ----
+wp-config.php
+.env
+.env.*
+!.env.example
+*.log
+
+# ---- Composer (lock ignoré pour l'instant : composer = index, pas de prod) ----
+/vendor/
+composer.lock
+
+# ---- Node (futur build du thème custom) ----
+node_modules/
+
+# ---- Core WordPress (géré via composer, jamais committé) ----
+/wp-admin/
+/wp-includes/
+/wp-*.php
+/xmlrpc.php
+/index.php
+/license.txt
+/readme.html
+
+# Fichiers racine legacy / résidus (franken-install pré-3.x, JPEG orphelin, etc.)
+/phpehrTKw
+
+# ---- wp-content ----
+/wp-content/index.php
+/wp-content/uploads/
+/wp-content/upgrade/
+/wp-content/cache/
+/wp-content/backup*/
+/wp-content/blogs.dir/
+/wp-content/advanced-cache.php
+/wp-content/wp-cache-config.php
+
+# Plugins & thèmes : gérés via composer/wpackagist (cf. composer.json)
+/wp-content/plugins/*
+/wp-content/themes/*
+
+# --- Code custom qu'on VERSIONNE (décommenter quand créé) ---
+#!/wp-content/mu-plugins/
+#!/wp-content/themes/cedricrivrain/
+#!/wp-content/plugins/cedricrivrain-*/

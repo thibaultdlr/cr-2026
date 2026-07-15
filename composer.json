@@ -1,0 +1,51 @@
+{
+    "name": "cedricrivrain/site",
+    "description": "Portfolio de Cédric Rivrain — index de setup WordPress (core + plugins + thème). Composer sert d'inventaire de la stack, pas de gestionnaire de prod (lock ignoré).",
+    "type": "project",
+    "license": "proprietary",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://wpackagist.org"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "composer/installers": "^2.0",
+        "johnpbloch/wordpress": "^6.4",
+        "wpackagist-plugin/akismet": "*",
+        "wpackagist-plugin/contact-form-7": "*",
+        "wpackagist-plugin/ml-slider": "*",
+        "wpackagist-plugin/really-simple-captcha": "*",
+        "wpackagist-plugin/wp-carousel-free": "*",
+        "wpackagist-plugin/all-404-redirect-to-homepage": "*",
+        "wpackagist-plugin/official-statcounter-plugin-for-wordpress": "*",
+        "wpackagist-theme/make": "*"
+    },
+    "extra": {
+        "wordpress-install-dir": "wp",
+        "installer-paths": {
+            "wp-content/plugins/{$name}/": ["type:wordpress-plugin"],
+            "wp-content/themes/{$name}/": ["type:wordpress-theme"]
+        },
+        "_notes": {
+            "role": "Ce fichier est un INDEX de la stack, pas un gestionnaire de prod. composer.lock est ignoré et aucune maintenance manuelle via composer n'est imposée à terme.",
+            "core-prod-actuel": "WordPress 4.6.30 (franken-install). Contrainte '^6.4' ci-dessus = cible de modernisation, pas la version en prod.",
+            "install-dir": "wordpress-install-dir='wp' pointe vers la direction Bedrock. Le legacy garde le core à la racine pour l'instant.",
+            "hors-wpackagist-a-ne-pas-reinstaller": {
+                "yellow-pencil-visual-theme-customizer": "Plugin PREMIUM, absent de wpackagist. Faille critique connue (privilege escalation, CVE-2019). À SUPPRIMER, ne pas réinstaller.",
+                "contact-form-7-recaptcha-extension": "Retiré de wp.org (le reCAPTCHA est désormais natif dans Contact Form 7). Non inventorié ici.",
+                "wp-recaptcha": "Introuvable sur wpackagist (plugin fermé/retiré de wp.org). À réinstaller manuellement ou remplacer.",
+                "wp-gallery-custom-links": "Introuvable sur wpackagist (plugin fermé/retiré de wp.org). À réinstaller manuellement ou remplacer.",
+                "wsa-favicon": "Introuvable sur wpackagist (plugin fermé/retiré de wp.org). À réinstaller manuellement ou remplacer."
+            },
+            "themes-legacy-non-geres": "Actif = make. Résidus à nettoyer plus tard : antreas, autofocus, blockbase, capture, expositio, snaps, tdsimple, wiles, Less, twentythirteen, twentyfourteen, twentyfifteen, twentyseventeen."
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true,
+            "johnpbloch/wordpress-core-installer": true
+        }
+    }
+}
