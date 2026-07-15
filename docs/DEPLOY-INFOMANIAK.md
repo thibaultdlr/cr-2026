@@ -112,6 +112,19 @@ Ordre : fichiers → DB → config → réécriture d'URL → caches.
 Voir l'en-tête du script pour l'usage. Le **transfert de fichiers** (rsync core/plugins/thèmes/
 uploads) et l'**import DB** restent manuels (une fois), car hors périmètre git.
 
+### Notes terrain (Infomaniak, vécu au 1er déploiement preprod)
+
+- **rsync macOS = openrsync** : refuse `--info`, `--partial`, etc. Transfert fiable via
+  `tar czf - --exclude=… . | ssh HOST 'tar xzf - -C ~/site'`.
+- **WP-CLI absent du serveur** : copier le phar local → `scp $(command -v wp) HOST:bin/wp` puis
+  `chmod +x ~/bin/wp` (le serveur a PHP 8.4, git, rsync, mysql, composer).
+- **Auth** : ajouter sa clé SSH via `ssh-copy-id` (le Manager n'expose pas toujours le champ clés).
+- **DB** : bien **associer l'utilisateur à la base** dans le Manager (sinon MySQL 1044). Le mot de
+  passe se pose côté serveur (`wp config set DB_PASSWORD …`), jamais partagé.
+- **`DISABLE_WP_CRON=true`** dans wp-config : SANS ça, les commandes wp-cli qui bootstrappent WP
+  **hangent** (loopback cron vers l'ancienne URL injoignable). À mettre avant tout `wp option/search-replace`.
+- Docroot preprod réel : `~/cedricrivrain/preprod` (le chemin Manager est relatif au home).
+
 ```bash
 # depuis la racine du site, sur le serveur Infomaniak :
 php bin/deploy.php --env=preprod --dry-run           # simulation

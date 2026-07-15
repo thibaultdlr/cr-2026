@@ -114,7 +114,7 @@ try {
 	if ( $first_run ) {
 		tr_step( "Réécriture d'URL : {$url_from} → {$url_to}" );
 		$sr = sprintf(
-			'search-replace %s %s --all-tables-with-prefix --skip-columns=guid --report-changes-only%s --skip-plugins --skip-themes',
+			'search-replace %s %s --all-tables-with-prefix --skip-columns=guid --report-changed-only%s --skip-plugins --skip-themes',
 			escapeshellarg( $url_from ),
 			escapeshellarg( $url_to ),
 			$dry_run ? ' --dry-run' : ''
