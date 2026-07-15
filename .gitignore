@@ -29,6 +29,10 @@ composer.lock
 # ---- Node (futur build du thème custom) ----
 node_modules/
 
+# ---- Déploiement : dumps DB de sauvegarde créés par bin/deploy.php ----
+# (nom en dotfile → aussi bloqué en HTTP par .htaccess.example)
+/.deploy-backups/
+
 # ---- Core WordPress (géré via composer, jamais committé) ----
 /wp-admin/
 /wp-includes/
