@@ -1,0 +1,70 @@
+# =============================================================================
+# .htaccess.example — modèle à copier en .htaccess sur le serveur cible.
+# Le .htaccess réel est ignoré par git (peut varier selon l'environnement).
+#   cp .htaccess.example .htaccess
+# =============================================================================
+
+# --- Landmine PHP : NE PAS forcer PHP5 sur un host moderne (fatal en PHP 8) ---
+# L'ancien install forçait :
+#   AddType application/x-httpd-php5 .php
+# À laisser commenté : le host doit servir le PHP par défaut (8.x).
+
+# Pas de listing de répertoire (évite d'exposer vendor/, node_modules/, uploads/…)
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# =============================================================================
+# DURCISSEMENT — bloquer l'accès web aux fichiers/dossiers de dev
+# Défense en profondeur : l'idéal reste de NE PAS déployer .git, vendor,
+# node_modules, composer.*, etc. sur le serveur. Ceci est le filet de sécurité
+# "au cas où" ça atterrirait quand même dans le webroot.
+# =============================================================================
+
+# 1) Tout fichier/dossier caché (.git, .env, .gitignore, .idea, .vscode, .DS_Store…)
+#    sauf .well-known (challenges ACME / Let's Encrypt).
+RewriteRule (^|/)\.(?!well-known(/|$)) - [F,L]
+
+# 2) Fichiers de dev / build par nom ou extension.
+RewriteRule (?i)(^|/)(composer\.(json|lock)|package(-lock)?\.json|yarn\.lock|Gruntfile\.js|gulpfile\.js|webpack\.config\.js|README|CHANGELOG)($|/) - [F,L]
+RewriteRule (?i)\.(env|dist|example|md|markdown|sql|sqlite|log|bak|old|orig|save|swp|ini|yml|yaml|sh|lock|tpl|twig)$ - [F,L]
+
+# 3) Fichiers WordPress sensibles/inutiles publiquement.
+RewriteRule (?i)(^|/)(wp-config(-sample)?\.php|readme\.html|license\.txt|wp-content/debug\.log)$ - [F,L]
+# xmlrpc souvent ciblé par du brute-force/pingback — décommenter pour le fermer :
+# RewriteRule (?i)(^|/)xmlrpc\.php$ - [F,L]
+
+# --- Redirection HTTPS (comportement historique conservé : force https en www) ---
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# --- Repli si mod_rewrite absent : 404 sur les dossiers de dev les plus courants ---
+<IfModule mod_alias.c>
+RedirectMatch 404 (?i)/\.(git|svn|hg|env|idea|vscode)(/|$)
+</IfModule>
+
+# --- Protection de wp-config.php même sans réécriture ---
+<FilesMatch "^wp-config\.php$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress

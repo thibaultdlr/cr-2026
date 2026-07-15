@@ -13,11 +13,13 @@ Thumbs.db
 *.swp
 *~
 
-# ---- Secrets & logs ----
+# ---- Secrets & config d'environnement (non versionnés) ----
 wp-config.php
 .env
 .env.*
 !.env.example
+# .htaccess réel ignoré : varie selon l'env. Modèle versionné = .htaccess.example
+/.htaccess
 *.log
 
 # ---- Composer (lock ignoré pour l'instant : composer = index, pas de prod) ----
