@@ -128,6 +128,11 @@ uploads) et l'**import DB** restent manuels (une fois), car hors périmètre git
 - **`DISABLE_WP_CRON=true`** dans wp-config : SANS ça, les commandes wp-cli qui bootstrappent WP
   **hangent** (loopback cron vers l'ancienne URL injoignable). À mettre avant tout `wp option/search-replace`.
 - Docroot preprod réel : `~/cedricrivrain/preprod` (le chemin Manager est relatif au home).
+- **Cron** : avec `DISABLE_WP_CRON=true`, brancher un déclencheur externe (Infomaniak = webcron).
+  Tâche cron → URL `…/wp-cron.php?doing_wp_cron=1` toutes les 15 min. **Si le site est derrière
+  Basic Auth**, exempter wp-cron.php dans `.htaccess` (sinon 401) :
+  `<Files "wp-cron.php"> Require all granted </Files>`. Alternative : cron en commande
+  `/opt/php8.4/bin/php <home>/bin/wp cron event run --due-now --path=<docroot> --quiet` (pas d'exception .htaccess).
 
 ```bash
 # depuis la racine du site, sur le serveur Infomaniak :
