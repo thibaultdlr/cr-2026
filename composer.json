@@ -20,6 +20,13 @@
         "wpackagist-plugin/wp-carousel-free": "*",
         "wpackagist-plugin/all-404-redirect-to-homepage": "*",
         "wpackagist-plugin/official-statcounter-plugin-for-wordpress": "*",
+        "wpackagist-plugin/wordpress-seo": "*",
+        "wpackagist-plugin/wordfence": "*",
+        "wpackagist-plugin/wp-super-cache": "*",
+        "wpackagist-plugin/autoptimize": "*",
+        "wpackagist-plugin/duplicate-post": "*",
+        "wpackagist-plugin/disable-comments": "*",
+        "wpackagist-plugin/redirection": "*",
         "wpackagist-theme/make": "*"
     },
     "extra": {
@@ -39,6 +46,7 @@
                 "wp-gallery-custom-links": "Introuvable sur wpackagist (plugin fermé/retiré de wp.org). À réinstaller manuellement ou remplacer.",
                 "wsa-favicon": "Introuvable sur wpackagist (plugin fermé/retiré de wp.org). À réinstaller manuellement ou remplacer."
             },
+            "plugins-preparation-terrain-2026-07-15": "Ajoutés (installés+activés en local) : wordpress-seo (Yoast), wordfence, wp-super-cache, autoptimize, duplicate-post (Yoast Duplicate Post), disable-comments, redirection. Plusieurs nécessitent une config (Wordfence, WP Super Cache, Autoptimize, Redirection) avant prod.",
             "themes-legacy-non-geres": "Actif = make. Résidus à nettoyer plus tard : antreas, autofocus, blockbase, capture, expositio, snaps, tdsimple, wiles, Less, twentythirteen, twentyfourteen, twentyfifteen, twentyseventeen."
         }
     },
