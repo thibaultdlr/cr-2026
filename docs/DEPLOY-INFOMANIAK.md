@@ -116,6 +116,10 @@ uploads) et l'**import DB** restent manuels (une fois), car hors périmètre git
 
 - **rsync macOS = openrsync** : refuse `--info`, `--partial`, etc. Transfert fiable via
   `tar czf - --exclude=… . | ssh HOST 'tar xzf - -C ~/site'`.
+- **⚠️ tar macOS + AppleDouble** : le `tar` macOS embarque des fichiers `._*` (métadonnées
+  xattr `com.apple.provenance`). WordPress charge TOUS les `.php` de `mu-plugins/` → il charge
+  `._tr-cache.php` (binaire) et l'affiche en haut des pages. **Préfixer par `COPYFILE_DISABLE=1 tar …`**,
+  et/ou nettoyer côté serveur : `find <docroot> -name '._*' -delete; find <docroot> -name '.DS_Store' -delete`.
 - **WP-CLI absent du serveur** : copier le phar local → `scp $(command -v wp) HOST:bin/wp` puis
   `chmod +x ~/bin/wp` (le serveur a PHP 8.4, git, rsync, mysql, composer).
 - **Auth** : ajouter sa clé SSH via `ssh-copy-id` (le Manager n'expose pas toujours le champ clés).
