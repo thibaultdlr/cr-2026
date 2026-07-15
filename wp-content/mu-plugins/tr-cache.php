@@ -8,7 +8,7 @@
  *              Generic: every layer is optional (guards).
  * Author:      Thibault Rivrain
  * Version:     1.0.0
- * Text Domain: tr-cache
+ * Text Domain: tr-admin
  * Domain Path: /languages
  *
  * @package TR\Cache
@@ -24,11 +24,12 @@ namespace TR\Cache {
 
 	if ( ! function_exists( __NAMESPACE__ . '\\clear_all' ) ) {
 
-		// Charge les traductions (fichiers .mo dans mu-plugins/languages/, ex. tr-cache-fr_FR.mo).
+		// Charge les traductions (domaine partagé « tr-admin » pour le texte admin-only,
+		// réutilisé aussi côté thème custom). Ex. mu-plugins/languages/tr-admin-fr_FR.mo.
 		add_action(
 			'init',
 			static function () {
-				load_muplugin_textdomain( 'tr-cache', 'languages' );
+				load_muplugin_textdomain( 'tr-admin', 'languages' );
 			}
 		);
 
@@ -104,9 +105,9 @@ namespace TR\Cache {
 				$wp_admin_bar->add_node(
 					array(
 						'id'    => NODE,
-						'title' => esc_html__( '⚡ Clear cache', 'tr-cache' ),
+						'title' => esc_html__( '⚡ Clear cache', 'tr-admin' ),
 						'href'  => wp_nonce_url( admin_url( 'admin-post.php?action=' . ACTION ), ACTION ),
-						'meta'  => array( 'title' => esc_attr__( 'Purge Autoptimize + WP Super Cache in the correct order', 'tr-cache' ) ),
+						'meta'  => array( 'title' => esc_attr__( 'Purge Autoptimize + WP Super Cache in the correct order', 'tr-admin' ) ),
 					)
 				);
 			},
@@ -120,7 +121,7 @@ namespace TR\Cache {
 			'admin_post_' . ACTION,
 			static function () {
 				if ( ! current_user_can( 'manage_options' ) ) {
-					wp_die( esc_html__( 'Permission denied.', 'tr-cache' ) );
+					wp_die( esc_html__( 'Permission denied.', 'tr-admin' ) );
 				}
 				check_admin_referer( ACTION );
 
@@ -139,7 +140,7 @@ namespace TR\Cache {
 			'admin_notices',
 			static function () {
 				if ( isset( $_GET[ FLAG ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-					echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Cache cleared (Autoptimize + WP Super Cache).', 'tr-cache' ) . '</p></div>';
+					echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Cache cleared (Autoptimize + WP Super Cache).', 'tr-admin' ) . '</p></div>';
 				}
 			}
 		);
