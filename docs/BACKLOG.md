@@ -28,7 +28,7 @@ orphelins retirés, 7 plugins de préparation ajoutés, mu-plugin de glue cache 
 
 - [ ] **Wordfence** — configurer le WAF + premier scan.
 - [ ] **WP Super Cache** — passer en mode *Simple* et activer le cache (la glue Autoptimize→SC
-      est déjà gérée par le mu-plugin `cedricrivrain-cache-glue`).
+      est déjà gérée par le mu-plugin `tr-cache`).
 - [ ] **Redirection** — lancer l'assistant (crée ses tables DB).
 - [ ] **Autoptimize** — agrégation OFF + minif ON déjà en place (rien à faire, cf. question MetaSlider ci-dessus).
 - [ ] **Déploiement** — méthode à définir ; NE PAS livrer `.git`, `vendor`, `node_modules` sur
@@ -67,4 +67,5 @@ orphelins retirés, 7 plugins de préparation ajoutés, mu-plugin de glue cache 
 - 4 plugins orphelins retirés (wp-recaptcha, cf7-recaptcha-ext, wsa-favicon, wp-gallery-custom-links).
 - 7 plugins ajoutés : Yoast SEO, Wordfence, WP Super Cache, Autoptimize, Yoast Duplicate Post,
   Disable Comments (initialisé), Redirection.
-- mu-plugin `cedricrivrain-cache-glue` (purge Autoptimize → WP Super Cache).
+- mu-plugin `tr-cache` (namespace `TR\Cache`, réutilisable) : purge unifiée ordonnée,
+  entrée admin bar unique, glue Autoptimize → WP Super Cache, hooks transients/cache objet.
