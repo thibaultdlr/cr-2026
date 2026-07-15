@@ -58,6 +58,9 @@ orphelins retirés, 7 plugins de préparation ajoutés, mu-plugin de glue cache 
       contact, copyright), propre et moderne. Cible du site (vitrine minimale vs vrai portfolio)
       encore à arbitrer avec l'artiste.
 - [ ] **Bascule Bedrock** — structurer le projet (web/, config/, .env) une fois le thème custom prêt.
+- [ ] **Go-live prod + migration DNS** — construire la prod depuis la preprod, basculer
+      `cedricrivrain.com` depuis online.net en préservant le mail (MX/SPF/DKIM). Checklist dédiée :
+      `docs/GO-LIVE-PROD.md`. À faire avec Cédric (accès registrar/DNS).
 
 ---
 
