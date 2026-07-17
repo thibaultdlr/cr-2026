@@ -27,6 +27,7 @@
         "wpackagist-plugin/duplicate-post": "*",
         "wpackagist-plugin/disable-comments": "*",
         "wpackagist-plugin/redirection": "*",
+        "wpackagist-plugin/wp-mail-smtp": "*",
         "wpackagist-theme/make": "*"
     },
     "extra": {

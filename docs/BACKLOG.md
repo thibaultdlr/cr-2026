@@ -27,6 +27,17 @@ orphelins retirés, 7 plugins de préparation ajoutés, mu-plugin de glue cache 
       `tr-admin`** (mu-plugin `tr-cache` + futur thème custom). Générer
       `tr-admin-fr_FR.po/.mo` (dans `mu-plugins/languages/` et/ou le thème).
 
+## 📧 Email / SMTP (backloggé — à finaliser après migration DNS, avec Cédric)
+
+- [ ] **Configurer l'envoi d'emails (SMTP)** — sur Infomaniak, `mail()` est **désactivé en contexte
+      web** → sans SMTP, tout envoi (reset password, alertes Wordfence…) **fatalise le login**.
+      État actuel : **WP Mail SMTP installé**, mis en `mailer=smtp` avec un **host placeholder
+      (`localhost`)** via constantes `WPMS_*` dans wp-config → l'envoi échoue en silence (pas de
+      fatal), mais **aucun mail ne part**. À finaliser : choisir la boîte d'envoi puis renseigner
+      `WPMS_SMTP_HOST/PORT/SSL/USER` + `WPMS_SMTP_PASS` (secret) + `WPMS_MAIL_FROM` dans wp-config.
+      Options envisagées : online.net (`contact@cedricrivrain.com`, `smtp.online.net`) / Gmail
+      (app password) / Infomaniak Service Mail (à créer). **Indispensable avant la prod.**
+
 ## 🚧 Avant mise en prod (config plugins)
 
 - [ ] **Wordfence** — configurer le WAF + premier scan.
