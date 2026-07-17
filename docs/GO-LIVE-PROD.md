@@ -55,6 +55,10 @@ de la **preprod déjà en ligne**, puis **basculer le domaine** `cedricrivrain.c
       `WP_DEBUG=false`, `DISABLE_WP_CRON=true` (⚠️ sinon hang wp-cli — cf. field notes) — et prévoir
       un **vrai cron système** (tâche planifiée Infomaniak appelant `wp cron event run --due-now`).
 - [ ] **`.htaccess`** : `cp .htaccess.example .htaccess`.
+- [ ] **Yoast** : après l'import, **`wp yoast index --reindex --skip-confirmation`** pour resynchroniser
+      les indexables (sinon Yoast sert des titres/descriptions périmés, surcharges ignorées).
+      ⚠️ Yoast ne construit ses indexables **que si `WP_ENVIRONMENT_TYPE='production'`** (en `staging`
+      il les gèle — c'est ce qui bloquait la recette SEO en preprod).
 - [ ] **Dé-preprod** : `wp option update blog_public 1` (réindexation OK), **PAS de HTTP Basic Auth**.
 
 ## D. SSL

@@ -128,6 +128,10 @@ uploads) et l'**import DB** restent manuels (une fois), car hors périmètre git
 - **`DISABLE_WP_CRON=true`** dans wp-config : SANS ça, les commandes wp-cli qui bootstrappent WP
   **hangent** (loopback cron vers l'ancienne URL injoignable). À mettre avant tout `wp option/search-replace`.
 - Docroot preprod réel : `~/cedricrivrain/preprod` (le chemin Manager est relatif au home).
+- **Yoast + `WP_ENVIRONMENT_TYPE`** : Yoast ne (re)construit ses indexables **qu'en `production`**. En
+  `staging`, il gèle la table `wp_yoast_indexable` → surcharges SEO (titre/description) ignorées en front.
+  Pour recetter le SEO, mettre `WP_ENVIRONMENT_TYPE='production'` (la preprod reste privée via
+  `blog_public=0` + Basic Auth) puis `wp yoast index --reindex --skip-confirmation` après tout import.
 - **Cron** : avec `DISABLE_WP_CRON=true`, brancher un déclencheur externe (Infomaniak = webcron).
   Tâche cron → URL `…/wp-cron.php?doing_wp_cron=1` toutes les 15 min. **Si le site est derrière
   Basic Auth**, exempter wp-cron.php dans `.htaccess` (sinon 401) :
