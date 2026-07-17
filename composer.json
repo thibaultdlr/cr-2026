@@ -28,6 +28,7 @@
         "wpackagist-plugin/disable-comments": "*",
         "wpackagist-plugin/redirection": "*",
         "wpackagist-plugin/wp-mail-smtp": "*",
+        "wpackagist-plugin/login-with-google": "*",
         "wpackagist-theme/make": "*"
     },
     "extra": {
